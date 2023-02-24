@@ -1,27 +1,21 @@
 import { defineComponentFramework } from "cypress";
 
-const dep: Cypress.CypressComponentDependency = {
-  // Unique, semantic identifier.
-  type: "template-name",
+const qwik: Cypress.CypressComponentDependency = {
+  type: "@lmiller1990/cypress-ct-qwik",
+  name: "Qwik",
+  package: "@builder.io/qwik",
+  installer: "@builder.io/qwik",
+  description: "The HTML-first framework",
+  minVersion: "^0.19.2"
+};
 
-  // Human readable name.
-  name: "Dependency Name",
-
-  // Package name install from `npm`.
-  package: "dependency-name",
-
-  /**
-   * Similar to package, but can include a version or tag.
-   * Used during setup to generate an install command for users.
-   * Eg: `solid-js@next`
-   */
-  installer: "dependency-name@^1.0.0",
-
-  // Human readable description.
-  description: "A required dependency for this project",
-
-  // Minimum supported version.
-  minVersion: "^1.0.0",
+const qwikCity: Cypress.CypressComponentDependency = {
+  type: "@lmiller1990/cypress-ct-qwik",
+  name: "Qwik City",
+  package: "@builder.io/qwik-city",
+  installer: "@builder.io/qwik-city",
+  description: "The meta-framework for Qwik",
+  minVersion: "^0.4.0"
 };
 
 /**
@@ -34,18 +28,18 @@ export default defineComponentFramework({
    * by Cypress is `cypress-ct-*` for global packages, or
    * `@org/cypress-ct-*` for organization level packages.
    */
-  type: "cypress-ct-template",
+  type: "@lmiller1990/cypress-ct-qwik",
 
   /**
    * The label that shows up when configuring Component Testing
    * for the first time.
    */
-  name: "Example Dependency",
+  name: "Qwik",
 
   /**
    * Supported bundlers. Can be "webpack" and/or "vite".
    */
-  supportedBundlers: ["vite", "webpack"],
+  supportedBundlers: ["vite"],
 
   /**
    * Used by Cypress to automatically detect the correct Framework Definition
@@ -54,13 +48,13 @@ export default defineComponentFramework({
    * is found in the user's project,
    * Solid.js will automatically be selected when configuring Component Testing.
    */
-  detectors: [dep],
+  detectors: [qwik],
 
   /**
    * Optionally, some conditional logic, based on whether
    * the user selected Vite or webpack.
    */
   dependencies: (bundler) => {
-    return [dep];
+    return [qwik, qwikCity];
   },
 });
